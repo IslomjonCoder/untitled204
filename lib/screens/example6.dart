@@ -16,8 +16,8 @@ class _Example6State extends State<Example6>
   @override
   void initState() {
     controller =
-        AnimationController(vsync: this, duration: Duration(seconds: 1));
-    _scaleAnimation = Tween<double>(begin: 1, end: 20)
+        AnimationController(vsync: this, duration: Duration(milliseconds: 500));
+    _scaleAnimation = Tween<double>(begin: 1, end: 2)
         .animate(CurvedAnimation(parent: controller, curve: Curves.linear));
     super.initState();
   }
@@ -35,15 +35,13 @@ class _Example6State extends State<Example6>
         title: Text('Example 6'),
       ),
       floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            controller.forward();
+          onPressed: () async {
+            await controller.forward();
             controller.reverse();
+            // controller.reverse();
           },
-          child: AnimatedScale(
-              scale: 1,
-              duration: Duration(seconds: 1),
-              child: ScaleTransition(
-                  scale: _scaleAnimation, child: Icon(Icons.reddit)))),
+          child: ScaleTransition(
+              scale: _scaleAnimation, child: Icon(Icons.reddit))),
       body: Center(
         child: TweenAnimationBuilder(
           builder: (context, value, child) => Transform.rotate(
