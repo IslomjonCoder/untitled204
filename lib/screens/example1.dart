@@ -14,9 +14,10 @@ class _Example1State extends State<Example1>
   late AnimationController controller;
   @override
   void initState() {
-    controller =
-        AnimationController(vsync: this, duration: Duration(milliseconds: 1000))
-          ..repeat();
+    controller = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 1000),
+    )..repeat();
     super.initState();
   }
 
@@ -30,7 +31,7 @@ class _Example1State extends State<Example1>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Exapmle 1'),
+        title: const Text('Exapmle 1'),
       ),
       body: AnimatedBuilder(
         animation: controller,
@@ -40,7 +41,7 @@ class _Example1State extends State<Example1>
             child: Container(
               height: 100,
               width: 100,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: Colors.blue,
               ),
             ),

@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 
 class Example14 extends StatefulWidget {
-  Example14({Key? key}) : super(key: key);
+  const Example14({Key? key}) : super(key: key);
 
   @override
   State<Example14> createState() => _Example14State();
@@ -18,17 +18,23 @@ class _Example14State extends State<Example14>
   Color secondColor =
       Color((Random().nextDouble() * 0xFFFFFF).toInt()).withOpacity(1.0);
   late Animation<double> valueAnimation;
-
+  String value = "0";
   @override
   void initState() {
     controller =
-        AnimationController(vsync: this, duration: Duration(seconds: 1));
+        AnimationController(vsync: this, duration: const Duration(seconds: 1))
+          ..addListener(() {
+            value = (valueAnimation.status == AnimationStatus.completed)
+                ? valueAnimation.status.name
+                : '${(controller.value * 100).round()}%';
+            setState(() {});
+          });
 
     _colorAnimation = DecorationTween(
-            begin: BoxDecoration(color: firstColor, shape: BoxShape.circle),
-            end: BoxDecoration(color: secondColor, shape: BoxShape.circle))
-        .animate(CurvedAnimation(parent: controller, curve: Curves.linear));
-    valueAnimation = Tween<double>(begin: 0, end: 1)
+      begin: BoxDecoration(color: firstColor, shape: BoxShape.circle),
+      end: BoxDecoration(color: secondColor, shape: BoxShape.circle),
+    ).animate(CurvedAnimation(parent: controller, curve: Curves.linear));
+    valueAnimation = Tween<double>(begin: 1, end: 2)
         .animate(CurvedAnimation(parent: controller, curve: Curves.linear));
     super.initState();
   }
@@ -47,39 +53,48 @@ class _Example14State extends State<Example14>
       ),
       body: Center(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             DecoratedBoxTransition(
               decoration: _colorAnimation,
-              child: Container(
+              child: const SizedBox(
                 height: 100,
                 width: 100,
               ),
             ),
-            FadeTransition(
-              opacity: valueAnimation,
-              child: Text(
-                controller.value.toString(),
-              ),
-            ),
+            Text(value),
             ElevatedButton(
-                onPressed: () {
-                  setState(() {
-                    firstColor = secondColor;
-                    secondColor =
-                        Color((Random().nextDouble() * 0xFFFFFF).toInt())
-                            .withOpacity(1.0);
-                    _colorAnimation = DecorationTween(
-                            begin: BoxDecoration(
-                                color: firstColor, shape: BoxShape.circle),
-                            end: BoxDecoration(
-                                color: secondColor, shape: BoxShape.circle))
-                        .animate(CurvedAnimation(
-                            parent: controller, curve: Curves.linear));
-                  });
-                  controller.reset();
-                  controller.forward();
-                },
-                child: Text('Animate'))
+              onPressed: () {
+                setState(() {
+                  firstColor = secondColor;
+                  secondColor =
+                      Color((Random().nextDouble() * 0xFFFFFF).toInt())
+                          .withOpacity(1.0);
+                  _colorAnimation = DecorationTween(
+                    begin: BoxDecoration(
+                      color: firstColor,
+                      shape: BoxShape.circle,
+                    ),
+                    end: BoxDecoration(
+                      color: secondColor,
+                      shape: BoxShape.circle,
+                    ),
+                  ).animate(
+                    CurvedAnimation(
+                      parent: controller,
+                      curve: Curves.linear,
+                    ),
+                  );
+                });
+                setState(() {
+                  value = controller.status.name;
+                });
+
+                controller.reset();
+                controller.forward();
+              },
+              child: const Text('Animate'),
+            )
           ],
         ),
       ),

@@ -22,7 +22,7 @@ class _Example3State extends State<Example3>
     final width = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
-        title: Text('Example 3'),
+        title: const Text('Example 3'),
       ),
       body: Stack(
         children: [
@@ -42,55 +42,60 @@ class _Example3State extends State<Example3>
             left: 0,
             right: 0,
             child: SizedBox(
-                height: 250,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    ElevatedButton(
+              height: 250,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  ElevatedButton(
+                    onPressed: () {
+                      if (vertCount >= -2) {
+                        vertCount--;
+                        vert -= value;
+                      }
+
+                      setState(() {});
+                    },
+                    child: const Icon(Icons.arrow_upward),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      ElevatedButton(
                         onPressed: () {
-                          if (vertCount >= -2) {
-                            vertCount--;
-                            vert -= value;
+                          if (horzCount >= -2) {
+                            horzCount--;
+                            horz -= value;
+                          }
+                          setState(() {});
+                        },
+                        child: const Icon(CupertinoIcons.back),
+                      ),
+                      ElevatedButton(
+                        onPressed: () {
+                          if (horzCount <= 2) {
+                            horzCount++;
+                            horz += value;
                           }
 
                           setState(() {});
                         },
-                        child: const Icon(Icons.arrow_upward)),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        ElevatedButton(
-                            onPressed: () {
-                              if (horzCount >= -2) {
-                                horzCount--;
-                                horz -= value;
-                              }
-                              setState(() {});
-                            },
-                            child: const Icon(CupertinoIcons.back)),
-                        ElevatedButton(
-                            onPressed: () {
-                              if (horzCount <= 2) {
-                                horzCount++;
-                                horz += value;
-                              }
-
-                              setState(() {});
-                            },
-                            child: const Icon(Icons.arrow_forward_ios)),
-                      ],
-                    ),
-                    ElevatedButton(
-                        onPressed: () {
-                          if (vertCount <= 2) {
-                            vertCount++;
-                            vert += value;
-                          }
-                          setState(() {});
-                        },
-                        child: const Icon(CupertinoIcons.down_arrow))
-                  ],
-                )),
+                        child: const Icon(Icons.arrow_forward_ios),
+                      ),
+                    ],
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      if (vertCount <= 2) {
+                        vertCount++;
+                        vert += value;
+                      }
+                      setState(() {});
+                    },
+                    child: const Icon(CupertinoIcons.down_arrow),
+                  )
+                ],
+              ),
+            ),
           )
         ],
       ),

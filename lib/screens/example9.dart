@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class Example9 extends StatefulWidget {
-  Example9({Key? key}) : super(key: key);
+  const Example9({Key? key}) : super(key: key);
 
   @override
   State<Example9> createState() => _Example9State();
@@ -12,23 +12,23 @@ class _Example9State extends State<Example9> {
 
   @override
   Widget build(BuildContext context) {
-    final a = MediaQuery.of(context).orientation;
-    final width = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
-        title: Text('Example 9'),
+        title: const Text('Example 9'),
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           AnimatedDefaultTextStyle(
-              textAlign: TextAlign.center,
-              child: Text('Hello Flutter world'),
-              style: TextStyle(
-                  fontSize: isLarge ? 50 : 24,
-                  color: isLarge ? Colors.red : Colors.blue),
-              duration: Duration(milliseconds: 700)),
-          SizedBox(height: 20),
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: isLarge ? 50 : 24,
+              color: isLarge ? Colors.red : Colors.blue,
+            ),
+            duration: const Duration(milliseconds: 700),
+            child: const Text('Hello Flutter world'),
+          ),
+          const SizedBox(height: 20),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -37,15 +37,15 @@ class _Example9State extends State<Example9> {
                   isLarge = true;
                   setState(() {});
                 },
-                child: Icon(Icons.play_arrow),
+                child: const Icon(Icons.play_arrow),
               ),
-              SizedBox(width: 20),
+              const SizedBox(width: 20),
               FloatingActionButton(
                 onPressed: () {
                   isLarge = false;
                   setState(() {});
                 },
-                child: Icon(Icons.lock_reset),
+                child: const Icon(Icons.lock_reset),
               )
             ],
           )

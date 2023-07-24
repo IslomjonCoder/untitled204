@@ -15,8 +15,10 @@ class _Example6State extends State<Example6>
   late Animation<double> _scaleAnimation;
   @override
   void initState() {
-    controller =
-        AnimationController(vsync: this, duration: Duration(milliseconds: 500));
+    controller = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 500),
+    );
     _scaleAnimation = Tween<double>(begin: 1, end: 2)
         .animate(CurvedAnimation(parent: controller, curve: Curves.linear));
     super.initState();
@@ -32,16 +34,18 @@ class _Example6State extends State<Example6>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Example 6'),
+        title: const Text('Example 6'),
       ),
       floatingActionButton: FloatingActionButton(
-          onPressed: () async {
-            await controller.forward();
-            controller.reverse();
-            // controller.reverse();
-          },
-          child: ScaleTransition(
-              scale: _scaleAnimation, child: Icon(Icons.reddit))),
+        onPressed: () async {
+          await controller.forward();
+          controller.reverse();
+        },
+        child: ScaleTransition(
+          scale: _scaleAnimation,
+          child: const Icon(Icons.reddit),
+        ),
+      ),
       body: Center(
         child: TweenAnimationBuilder(
           builder: (context, value, child) => Transform.rotate(
@@ -49,29 +53,41 @@ class _Example6State extends State<Example6>
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                FlutterLogo(
-                  size: 150,
+                Transform.rotate(
+                  angle: -value,
+                  child: FlutterLogo(
+                    size: 150,
+                  ),
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    FlutterLogo(
-                      size: 150,
+                    Transform.rotate(
+                      angle: -value,
+                      child: FlutterLogo(
+                        size: 150,
+                      ),
                     ),
-                    FlutterLogo(
-                      size: 150,
+                    Transform.rotate(
+                      angle: -value,
+                      child: FlutterLogo(
+                        size: 150,
+                      ),
                     ),
                   ],
                 ),
-                FlutterLogo(
-                  size: 150,
+                Transform.rotate(
+                  angle: -value,
+                  child: FlutterLogo(
+                    size: 150,
+                  ),
                 ),
               ],
             ),
           ),
           tween: Tween<double>(begin: 0, end: 2 * pi),
           curve: Curves.linear,
-          duration: Duration(seconds: 2),
+          duration: const Duration(seconds: 2),
         ),
       ),
     );

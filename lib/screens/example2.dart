@@ -9,26 +9,20 @@ class Example2 extends StatefulWidget {
   State<Example2> createState() => _Example1State();
 }
 
-class _Example1State extends State<Example2>
-    with SingleTickerProviderStateMixin {
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
+class _Example1State extends State<Example2> {
   double height = 100;
   double width = 100;
   double radius = 10;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Exapmle 2'),
+        title: const Text('Exapmle 2'),
       ),
       body: Center(
         child: AnimatedContainer(
-          duration: Duration(milliseconds: 500),
+          duration: const Duration(milliseconds: 500),
           height: height,
           width: width,
           decoration: BoxDecoration(
@@ -39,13 +33,14 @@ class _Example1State extends State<Example2>
         ),
       ),
       floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            height = Random().nextInt(250).toDouble() + 50;
-            width = Random().nextInt(250).toDouble() + 50;
-            radius = Random().nextInt(25).toDouble();
-            setState(() {});
-          },
-          child: Icon(Icons.play_arrow)),
+        onPressed: () {
+          height = Random().nextInt(250).toDouble() + 50;
+          width = Random().nextInt(250).toDouble() + 50;
+          radius = Random().nextInt(25).toDouble();
+          setState(() {});
+        },
+        child: const Icon(Icons.play_arrow),
+      ),
     );
   }
 }

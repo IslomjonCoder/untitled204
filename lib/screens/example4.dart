@@ -9,42 +9,44 @@ class Example4 extends StatefulWidget {
 
 class _Example1State extends State<Example4>
     with SingleTickerProviderStateMixin {
-  @override
   double opacity = 1;
   bool isFirst = true;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Example 4'),
+        title: const Text('Example 4'),
       ),
-      body: Container(
+      body: SizedBox(
         width: double.infinity,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             AnimatedContainer(
-                duration: Duration(milliseconds: 500),
-                alignment: Alignment.center,
-                height: 200,
-                width: 200,
-                color: isFirst ? Colors.orange : Colors.green,
-                child: AnimatedCrossFade(
-                    firstChild: Text('This is First widget'),
-                    secondChild: Text('This is Second widget'),
-                    crossFadeState: isFirst
-                        ? CrossFadeState.showFirst
-                        : CrossFadeState.showSecond,
-                    duration: Duration(seconds: 1))),
-            SizedBox(height: 10),
+              duration: const Duration(milliseconds: 500),
+              alignment: Alignment.center,
+              height: 200,
+              width: 200,
+              color: isFirst ? Colors.orange : Colors.green,
+              child: AnimatedCrossFade(
+                firstChild: const Text('This is First widget'),
+                secondChild: const Text('This is Second widget'),
+                crossFadeState: isFirst
+                    ? CrossFadeState.showFirst
+                    : CrossFadeState.showSecond,
+                duration: const Duration(seconds: 1),
+              ),
+            ),
+            const SizedBox(height: 10),
             ElevatedButton(
-                onPressed: () {
-                  setState(() {
-                    isFirst = !isFirst;
-                  });
-                },
-                child: Text('Click here'))
+              onPressed: () {
+                setState(() {
+                  isFirst = !isFirst;
+                });
+              },
+              child: const Text('Click here'),
+            )
           ],
         ),
       ),
