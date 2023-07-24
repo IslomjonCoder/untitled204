@@ -12,6 +12,7 @@ class _Example9State extends State<Example9> {
 
   @override
   Widget build(BuildContext context) {
+    final a = MediaQuery.of(context).orientation;
     final width = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(

@@ -25,21 +25,18 @@ class _Example1State extends State<Example4>
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             AnimatedContainer(
-              duration: Duration(milliseconds: 500),
-              alignment: Alignment.center,
-              height: 200,
-              width: 200,
-              color: isFirst ? Colors.orange : Colors.green,
-              child: isFirst
-                  ? AnimatedOpacity(
-                      opacity: opacity == 0 ? 0 : 1,
-                      duration: Duration(milliseconds: 500),
-                      child: Text('This is First widget'))
-                  : AnimatedOpacity(
-                      opacity: opacity == 1 ? 1 : 0,
-                      duration: Duration(milliseconds: 500),
-                      child: Text('This is Second widget')),
-            ),
+                duration: Duration(milliseconds: 500),
+                alignment: Alignment.center,
+                height: 200,
+                width: 200,
+                color: isFirst ? Colors.orange : Colors.green,
+                child: AnimatedCrossFade(
+                    firstChild: Text('This is First widget'),
+                    secondChild: Text('This is Second widget'),
+                    crossFadeState: isFirst
+                        ? CrossFadeState.showFirst
+                        : CrossFadeState.showSecond,
+                    duration: Duration(seconds: 1))),
             SizedBox(height: 10),
             ElevatedButton(
                 onPressed: () {
